@@ -1,7 +1,7 @@
 import farawin from "farawin";
 import { useState } from "react";
 
-export const RemoveContact = () => {
+export const RemoveContact = ({ setshowRemoveContact }) => {
   const [inputTel, setInputTel] = useState("");
 
   const SendInformation = async () => {
@@ -11,25 +11,34 @@ export const RemoveContact = () => {
     if (mobileRegex.test(EnMobile)) {
       const valid = await farawin.testDeleteContact(EnMobile);
       alert(valid.message);
+    } else {
+      alert("شماره موبایل را درست وارد کنید");
     }
   };
 
   return (
-    <form className="flex flex-col justify-center bg-slate-700 rounded-2xl text-white h-[150px] w-full overflow-hidden my-1 p-6">
-      <h1 className="underline text-red-600 text-lg m-1">حذف مخاطب</h1>
+    <form className="flex flex-col gap-4 justify-around bg-red-500 rounded-2xl text-white h-[300px] w-[300px]  overflow-hidden my-1 p-6">
+      <div
+        onClick={() => setshowRemoveContact((prev) => !prev)}
+        className="cursor-pointer self-end w-8 rounded-full hover:bg-red-700 p-1"
+      >
+        {" "}
+        X{" "}
+      </div>
 
+      <h1 className=" text-white text-lg ">حذف مخاطب</h1>
       <label>شماره تماس :</label>
       <input
         type="tel"
         value={inputTel}
         onChange={(e) => setInputTel(e.target.value)}
-        className="rounded-full text-center text-black"
+        className="outline-none  h-8 text-center text-black"
       />
 
       <button
         type="button"
         onClick={SendInformation}
-        className="border my-4 rounded-full hover:bg-red-700"
+        className="border-none bg-red-500  h-10 rounded-full hover:bg-red-700"
       >
         REMOVE
       </button>

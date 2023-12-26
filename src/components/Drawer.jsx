@@ -28,6 +28,7 @@ export const DrawerChat = (prop) => {
 
   // ---------------------------------------------------------------------------------
   const selectedHandler = (itemSelected) => {
+    setShowDrawer((prev) => !prev);
     return prop.selectedItem(itemSelected);
   };
 
@@ -68,9 +69,15 @@ export const DrawerChat = (prop) => {
       }
     >
       <div className="flex justify-start items-center  h-9 mt-1 ">
-        
-      <button onClick={()=>{return localStorage.clear() , location.reload()}} className="border border-red-700 hover:bg-red-600 rounded-lg h-9 shrink-0 w-10 p-1">Exit</button>
-        
+        <button
+          onClick={() => {
+            return localStorage.clear(), location.reload();
+          }}
+          className="border border-red-700 hover:bg-red-600 rounded-lg h-9 shrink-0 w-10 p-1"
+        >
+          Exit
+        </button>
+
         <img
           src={imageAddContact}
           className={
@@ -112,7 +119,7 @@ export const DrawerChat = (prop) => {
           className=" w-10 mx-1 cursor-pointer"
           alt="editContact"
         />
-        
+
         <img
           src={imageDrawerMenu}
           onClick={() => {
@@ -161,7 +168,15 @@ export const DrawerChat = (prop) => {
       </div>
 
       {/* این دیو برای مدیریت افزودن مخاطب است */}
-      <div>{showAddContact ? <AddContact /> : ""}</div>
+      <div>
+        {showAddContact ? (
+          <div className=" backdrop-blur-sm  fixed z-[2] left-0 top-0 bottom-0 right-0 flex justify-center items-center ">
+            <AddContact setShowAddContact={setShowAddContact} />
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
 
       {/* این دیو برای مدیریت ویرایش مخاطب است */}
       {showEditContact ? (
@@ -173,7 +188,15 @@ export const DrawerChat = (prop) => {
       )}
 
       {/* این دیو برای مدیریت حذف مخاطب است */}
-      <div>{showRemoveContact ? <RemoveContact /> : ""}</div>
+      <div>
+        {showRemoveContact ? (
+          <div className="fixed z-[1] inset-0 flex justify-center items-center backdrop-blur-sm">
+            <RemoveContact setshowRemoveContact={setshowRemoveContact} />
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
 
       {/* این جا همه مخاطبین ما نمایش داده میشود */}
       {members.length == 0

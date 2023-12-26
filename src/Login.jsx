@@ -5,8 +5,8 @@ import { useState } from "react";
 const Login = ({ onFormSwitch }) => {
   // اینجا دو تا هوک استفاده کردم از ری اکت برای نگه داری مقادیر در استیت
   // اینجا یوزر نیم همان موبایل است
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("09333536546");
+  const [password, setPassword] = useState("123456789");
 
   // اینجا هم مقدار داخل استیت مربوطه رو اپدیت کردم
   const updateStatepass = (e) => {
@@ -24,10 +24,11 @@ const Login = ({ onFormSwitch }) => {
 
     if (mobileRegex.test(EnMobile)) {
       const valid = await farawin.testLogin(EnMobile, password);
-      alert(valid.message);
       if (valid.code == 200) {
         localStorage.userMobile = userName;
         location.reload();
+      } else {
+        alert(valid.message);
       }
     }
   };
